@@ -16,8 +16,8 @@ class Room:
     def remove_guest(self,guest):
         self.guests.remove(guest)
 
-    def check_room_has_space(self, guests, capacity):
-        if len(guests) < capacity:
+    def check_room_has_space(self):
+        if len(self.guests) < self.capacity:
             return True
         else:
             return False
@@ -28,5 +28,15 @@ class Room:
         else:
             return True
 
-    # def check_in_guest
+    def check_in_guest(self, guest):
+        if self.check_room_has_space() == False:
+            return "Sorry, we're full"
+        else:
+            if self.check_funds(guest) == False:
+                return "Sorry, you can't afford karaoke"
+            else:
+                self.add_guest(guest)
+                guest.pay_fee(self)
+            
+
     

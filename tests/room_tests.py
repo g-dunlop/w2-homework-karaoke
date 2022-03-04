@@ -34,16 +34,16 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(0, len(self.room.guests))
 
     def test_room_has_space_for_guest(self):
-        self.room.check_room_has_space(self.room.guests, self.room.capacity)
-        self.assertEqual(True, self.room.check_room_has_space(self.room.guests, self.room.capacity))
+        self.room.check_room_has_space()
+        self.assertEqual(True, self.room.check_room_has_space())
 
     def test_room_is_already_full(self):
         self.room.add_guest(self.guest)
         self.room.add_guest(self.guest_2)
         self.room.add_guest(self.guest_3)
         self.room.add_guest(self.guest_4)
-        self.room.check_room_has_space(self.room.guests, self.room.capacity)
-        self.assertEqual(False, self.room.check_room_has_space(self.room.guests, self.room.capacity) )
+        self.room.check_room_has_space()
+        self.assertEqual(False, self.room.check_room_has_space())
 
     def test_guest_has_enough_money(self):
         self.room.check_funds(self.guest)
@@ -53,4 +53,24 @@ class TestRoom(unittest.TestCase):
         self.room.check_funds(self.guest_5)
         self.assertEqual(False, self.room.check_funds(self.guest_5))
         
+    def test_check_in_guest_entry_given(self):
+        self.room.check_in_guest(self.guest)
+        self.assertEqual(1, len(self.room.guests))
 
+    def test_check_in_guests_entry_given(self):
+        self.room.check_in_guest(self.guest)
+        self.room.check_in_guest(self.guest_2)
+        self.room.check_in_guest(self.guest_3)
+        self.assertEqual(3, len(self.room.guests))
+
+    def test_check_in_5_guests_sorry_bon_full(self):
+        self.room.check_in_guest(self.guest)
+        self.room.check_in_guest(self.guest_2)
+        self.room.check_in_guest(self.guest_3)
+        self.room.check_in_guest(self.guest_4)
+        self.room.check_in_guest(self.guest_5)
+        self.assertEqual(4, len(self.room.guests))
+
+    def test_check_in_lack_of_funds(self):
+        self.room.check_in_guest(self.guest_5)
+        self.assertEqual(0, len(self.room.guests))
