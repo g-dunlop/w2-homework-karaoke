@@ -20,6 +20,13 @@ class TestGuest(unittest.TestCase):
     def test_guest_has_favourite_song(self):
         self.assertEqual("House of the Rising Sun", self.guest.favourite_song)
 
+    def test_guest_has_volume(self):
+        self.assertEqual(0, self.guest.volume)
+
+    def test_increase_volume(self):
+        self.guest.increase_volume()
+        self.assertEqual(25, self.guest.volume)
+
     def test_guest_wallet_decrease(self):
         self.guest.pay_fee(self.room)
         self.assertEqual(40, self.guest.wallet)

@@ -3,6 +3,7 @@ class Guest:
         self.name = name
         self.wallet = wallet
         self.favourite_song = favourite_song
+        self.volume = 0
 
     def pay_fee(self, room):
         self.wallet -= room.price
@@ -12,3 +13,6 @@ class Guest:
             return "whoo"
         else:
             return "meh"
+
+    def increase_volume(self):
+        self.volume += 25
